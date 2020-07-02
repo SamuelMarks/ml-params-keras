@@ -1,9 +1,10 @@
 ml_params_keras
 ===============
-![Python version range](https://img.shields.io/badge/python-2.7%E2%80%933.6+-blue.svg)
+![Python version range](https://img.shields.io/badge/python-3.6%E2%80%933.8+-blue.svg)
 [![License](https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Linting & testing](https://github.com/SamuelMarks/ml-params-trax/workflows/Linting%20&%20testing/badge.svg)](https://github.com/SamuelMarks/ml-params-trax/actions)
 
-Keras implementation of ml-params CLI API
+[Keras](https://keras.io) implementation of ml-params CLI API
 
 ## Install dependencies
 
@@ -16,6 +17,12 @@ Keras implementation of ml-params CLI API
 ## Usage
 
 After installing as above, follow usage from https://github.com/SamuelMarks/ml-params
+
+## Additional options
+
+Set this environment variable to falsey if you want to `import keras` rather than `from tensorflow import keras`:
+
+    TF_KERAS
 
 ## Sibling projects
 
