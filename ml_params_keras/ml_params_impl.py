@@ -8,9 +8,10 @@ from typing import Tuple
 import numpy as np
 import tensorflow as tf
 from ml_params.base import BaseTrainer
-from ml_params_keras import get_logger
 from ml_prepare.datasets import datasets2classes
 from ml_prepare.exectors import build_tfds_dataset
+
+from ml_params_keras import get_logger
 
 if environ.get('TF_KERAS', True):
     from tensorflow import keras
@@ -105,10 +106,13 @@ class KerasTrainer(BaseTrainer):
                 scale=None, K=None, as_numpy=False
             )
         else:
+            load_data_kwargs = {}
+            if not path.isabs(tensorflow_datasets_dir):
+                # has to be relative to '~/.keras/datasets' =(
+                load_data_kwargs = {'path': path.join(tensorflow_datasets_dir, 'downloads',
+                                                      '{dataset_name}.npz'.format(dataset_name=dataset_name))}
             (x_train, y_train), (x_test, y_test) = getattr(keras.datasets, dataset_name).load_data(
-                path.join(tensorflow_datasets_dir, 'downloads',
-                          '{dataset_name}.npz'.format(dataset_name=dataset_name))
-                # relative to '~/.keras/datasets' =(
+                **load_data_kwargs
             )
             x_train = x_train.astype("float32") / data_loader_kwargs['scale']
             x_test = x_test.astype("float32") / data_loader_kwargs['scale']
