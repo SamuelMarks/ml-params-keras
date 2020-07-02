@@ -8,7 +8,7 @@ from typing import Tuple
 import numpy as np
 import tensorflow as tf
 from ml_params.base import BaseTrainer
-from ml_params_trax import get_logger
+from ml_params_keras import get_logger
 from ml_prepare.datasets import datasets2classes
 from ml_prepare.exectors import build_tfds_dataset
 
@@ -64,8 +64,6 @@ class KerasTrainer(BaseTrainer):
                                                         data_loader_kwargs=data_loader_kwargs,
                                                         data_type=data_type,
                                                         output_type=output_type)
-        # self.data = trax.supervised.Inputs(*self.data)
-        # trax.supervised.inputs.dataset_to_stream(self.data, dataset_name)
 
     @staticmethod
     def load_data_from_keras_or_ml_prepare(dataset_name, tensorflow_datasets_dir=None, data_loader_kwargs=None):
