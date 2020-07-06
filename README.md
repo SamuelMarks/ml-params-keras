@@ -26,9 +26,11 @@ Set this environment variable to falsey if you want to `import keras` rather tha
 
 ## Sibling projects
 
-  - https://github.com/SamuelMarks/ml-params-jax
-  - https://github.com/SamuelMarks/ml-params-trax
   - https://github.com/SamuelMarks/ml-params-tensorflow
+  - https://github.com/SamuelMarks/ml-params-jax
+  - https://github.com/SamuelMarks/ml-params-flax
+  - https://github.com/SamuelMarks/ml-params-trax
+  - https://github.com/SamuelMarks/ml-params-pytorch
 
 ## Related projects
 

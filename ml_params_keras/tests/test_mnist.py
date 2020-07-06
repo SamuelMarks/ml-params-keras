@@ -8,29 +8,37 @@ from ml_params_keras.ml_params_impl import KerasTrainer
 
 
 class TestMnist(TestCase):
-    tensorflow_datasets_dir = None  # type: str or None
+    tfds_dir = None  # type: str or None
     model_dir = None  # type: str or None
 
     @classmethod
     def setUpClass(cls) -> None:
-        TestMnist.tensorflow_datasets_dir = path.join(path.expanduser('~'), 'tensorflow_datasets')
+        TestMnist.tfds_dir = path.join(path.expanduser('~'), 'tensorflow_datasets')
         TestMnist.model_dir = mkdtemp('_model_dir')
 
     @classmethod
     def tearDownClass(cls) -> None:
-        # rmtree(TestMnist.tensorflow_datasets_dir)
+        # rmtree(TestMnist.tfds_dir)
         rmtree(TestMnist.model_dir)
 
     def test_mnist(self) -> None:
         num_classes = 10
-        trainer = KerasTrainer(get_model, num_classes=num_classes)
-        trainer.load_data('mnist', data_loader_kwargs={
-            'tensorflow_datasets_dir': TestMnist.tensorflow_datasets_dir,
-            'data_loader_kwargs': {'num_classes': num_classes}
-        })
-
         epochs = 3
-        trainer.train(epochs=epochs, model_dir=TestMnist.model_dir)
+
+        trainer = KerasTrainer()
+        trainer.load_data(
+            'mnist',
+            tfds_dir=TestMnist.tfds_dir,
+            num_classes=num_classes
+        )
+        trainer.load_model(get_model, num_classes=num_classes)
+        trainer.train(epochs=epochs, model_dir=TestMnist.model_dir,
+                      loss='categorical_crossentropy',
+                      optimizer='adam',
+                      metrics=['accuracy'],
+                      callbacks=None,
+                      save_directory=None,
+                      metric_emit_freq=None)
 
 
 if __name__ == '__main__':
